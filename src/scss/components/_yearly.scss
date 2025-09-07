@@ -1,0 +1,55 @@
+@use "../utils" as *;
+
+.yearly {
+  @include preset("4-bold");
+  background-color: var(--blue-50);
+  height: var(--space-600);
+  display: grid;
+  grid-template-columns: repeat(3, min-content);
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-300);
+
+  input {
+    grid-column: 2 / 3;
+    display: none;
+  }
+
+  label {
+    cursor: pointer;
+  }
+
+  &__monthly {
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+    color: var(--grey-950);
+  }
+
+  &__inactive {
+    color: var(--grey-500);
+  }
+}
+
+.switch {
+  height: 1.25rem;
+  width: 2.375rem;
+  position: relative;
+  background-color: var(--blue-950);
+  transition: 0.4s;
+  border-radius: var(--space-150);
+
+  div {
+    position: absolute;
+    background-color: var(--white);
+    bottom: var(--space-50);
+    left: var(--space-50);
+    height: var(--space-150);
+    width: var(--space-150);
+    border-radius: 50%;
+    transition: transform 0.2s ease-in-out;
+  }
+
+  input:checked + div {
+    transform: translateX(var(--space-200));
+  }
+}

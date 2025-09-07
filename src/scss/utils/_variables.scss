@@ -1,0 +1,61 @@
+@use "sass:color";
+
+:root {
+  /* FONT WEIGHTS */
+
+  --font-regular: 400;
+  --font-medium: 500;
+  --font-bold: 700;
+
+  /* COLORS */
+
+  --white: hsl(0, 0%, 100%);
+  --black: hsl(0, 0%, 0%);
+  --grey-500: hsl(231, 11%, 63%);
+
+  --orange-300: hsl(23, 100%, 75%);
+
+  --red-400: hsl(354, 91%, 74%);
+  --red-450: hsl(353, 76%, 65%);
+  --red-500: hsl(354, 84%, 57%);
+
+  --purple-200: hsl(229, 24%, 87%);
+  --purple-400: hsl(243, 100%, 77%);
+  --purple-500: hsl(243, 100%, 67%);
+  --purple-600: hsl(243, 100%, 62%);
+
+  --blue-50: hsl(231, 100%, 99%);
+  --blue-100: hsl(218, 100%, 97%);
+  --blue-200: hsl(206, 94%, 87%);
+  --blue-300: hsl(228, 100%, 84%);
+  --blue-700: hsl(213, 73%, 31%);
+  --blue-950: hsl(213, 96%, 18%);
+
+  /* SIZES */
+
+  --space-0: 0; // 0px
+  --space-12: 0.0625rem; // 1px
+  --space-25: 0.125rem; // 2px
+  --space-50: 0.25rem; // 4px
+  --space-100: 0.5rem; // 8px
+  --space-125: 0.625rem; // 10px
+  --space-150: 0.75rem; // 12px
+  --space-175: 0.875rem; // 14px
+  --space-200: 1rem; // 16px
+  --space-225: 1.125rem; // 18px
+  --space-250: 1.25rem; // 20px
+  --space-300: 1.5rem; // 24px
+  --space-400: 2rem; // 32px
+  --space-500: 2.5rem; // 40px
+  --space-600: 3rem; // 48px
+  --space-700: 3.5rem; // 56px
+  --space-750: 3.75rem; // 56px
+  --space-800: 4rem; // 64px
+  --space-900: 4.5rem; // 72px
+  --space-1000: 5rem; // 80px
+  --space-1050: 5.5rem; // 88px
+  --space-1100: 6rem; // 96px
+  --space-1400: 7rem; // 112px
+  --space-1500: 7.5rem; // 120px
+  --space-1600: 8rem; // 128px
+}

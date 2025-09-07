@@ -1,0 +1,70 @@
+@use "variables" as *;
+@use "sass:map";
+
+/* Media Queries */
+
+@mixin mq($breakpoint) {
+  @if $breakpoint == s {
+    @media (max-width: 40em) {
+      @content;
+    }
+  } @else if $breakpoint == m {
+    @media (max-width: 50em) {
+      @content;
+    }
+  }
+}
+
+/* Typography */
+
+$preset-styles: (
+  "1": (
+    font-size: var(--space-400),
+    font-weight: var(--font-bold),
+    line-height: 1.2,
+  ),
+  "2": (
+    font-size: var(--space-300),
+    font-weight: var(--font-bold),
+    line-height: 1.2,
+  ),
+  "3-medium": (
+    font-size: var(--space-200),
+    font-weight: var(--font-medium),
+    line-height: 1.2,
+  ),
+  "3-regular": (
+    font-size: var(--space-200),
+    font-weight: var(--font-regular),
+    line-height: 1.5,
+  ),
+  "4-bold": (
+    font-size: var(--space-175),
+    font-weight: var(--font-bold),
+    line-height: 1.2,
+    letter-spacing: var(--space-12),
+  ),
+  "4-medium": (
+    font-size: var(--space-175),
+    font-weight: var(--font-medium),
+    line-height: 1.5,
+  ),
+  "4-regular": (
+    font-size: var(--space-175),
+    font-weight: var(--font-regular),
+    line-height: 1.2,
+  ),
+  "5": (
+    font-size: var(--space-150),
+    font-weight: var(--font-regular),
+    line-height: 1.2,
+  ),
+);
+
+@mixin preset($n) {
+  $preset: map.get($preset-styles, $n);
+
+  @each $prop, $value in $preset {
+    #{$prop}: $value;
+  }
+}

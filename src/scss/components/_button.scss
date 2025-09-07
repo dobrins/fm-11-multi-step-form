@@ -1,0 +1,52 @@
+@use "../utils" as *;
+
+@mixin btn($bg: transparent, $bg-hover: transparent) {
+  --bg: var(#{$bg});
+  --bg-hover: var(#{$bg-hover});
+  @include preset("3-medium");
+  color: var(--white);
+  border-radius: var(--space-100);
+  padding: var(--space-200) var(--space-300);
+  text-decoration: none;
+  cursor: pointer;
+  border: 0;
+  position: relative;
+  text-align: center;
+  background-color: var(--bg);
+
+  &:hover {
+    --bg: var(--bg-hover);
+  }
+
+  &:focus {
+    outline: var(--space-25) solid var(--bg-hover);
+    outline-offset: var(--space-25);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    user-select: none;
+
+    &:hover {
+      --bg: var(--bg-hover);
+    }
+  }
+}
+
+.btn-primary {
+  @include btn(--blue-950, --blue-700);
+}
+
+.btn-secondary {
+  @include btn(--purple-600, --purple-400);
+}
+
+.btn-tertiary {
+  @include btn();
+  color: var(--blue-950);
+
+  &:hover {
+    color: var(--grey-500);
+  }
+}

@@ -1,0 +1,83 @@
+@use "../utils" as *;
+
+.label {
+  @include preset("4-regular");
+  cursor: pointer;
+  align-items: center;
+}
+
+.form {
+  display: grid;
+  align-items: start;
+  row-gap: var(--space-300);
+}
+
+.form-control {
+  display: grid;
+  gap: var(--space-100);
+  grid-template-columns: repeat(2, 1fr);
+
+  &--full-width {
+    grid-column: 1 /-1;
+  }
+
+  &--double-gap {
+    gap: var(--space-200);
+  }
+
+  label {
+    @include preset("4-regular");
+  }
+
+  input:not([type="radio"]):not([type="checkbox"]),
+  textarea {
+    @include preset("body-m-regular");
+
+    border: var(--space-12) solid var(--grey-500);
+    border-radius: var(--space-100);
+    padding: var(--space-150) var(--space-300);
+    width: 100%;
+    color: var(--grey-900);
+    line-height: 1.39;
+    grid-column: 1 / -1;
+
+    &:hover,
+    &:focus {
+      border-color: var(--green-600);
+      outline: 0;
+    }
+  }
+
+  textarea {
+    resize: none;
+
+    @include mq(s) {
+      height: 15rem;
+    }
+  }
+
+  &--error {
+    & > :is(input:not([type="radio"]):not([type="checkbox"]), textarea) {
+      border-color: var(--red);
+
+      &:hover,
+      &:focus {
+        border-color: var(--red);
+        outline: 0;
+      }
+    }
+  }
+}
+
+.error {
+  @include preset("4-bold");
+  justify-self: end;
+  color: var(--red-500);
+}
+
+.form-buttons {
+  align-self: end;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row-reverse;
+}

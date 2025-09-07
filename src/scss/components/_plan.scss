@@ -1,0 +1,58 @@
+@use "../utils" as *;
+
+.plans {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-200);
+
+  input {
+    display: none;
+
+    &:checked + .plan {
+      border-color: var(--purple-600);
+      background-color: var(--blue-50);
+    }
+  }
+}
+.plan {
+  flex: 1;
+  display: grid;
+  align-items: end;
+  height: 10rem;
+  border: var(--space-12) solid var(--purple-200);
+  border-radius: var(--space-100);
+  padding: var(--space-200);
+  display: grid;
+  cursor: pointer;
+  background-repeat: no-repeat;
+  background-position: var(--space-200) var(--space-225);
+
+  &:hover {
+    border-color: var(--purple-600);
+  }
+
+  &--arcade {
+    background-image: url("public/icon-arcade.svg");
+  }
+  &--advanced {
+    background-image: url("public/icon-advanced.svg");
+  }
+  &--pro {
+    background-image: url("public/icon-pro.svg");
+  }
+
+  &__title {
+    @include preset("3-medium");
+    text-transform: capitalize;
+  }
+
+  &__price {
+    @include preset("4-regular");
+    color: var(--grey-500);
+  }
+
+  &__free {
+    @include preset("5");
+    margin-block-start: var(--space-100);
+  }
+}

@@ -1,0 +1,39 @@
+@use "../utils" as *;
+
+.sidebar-step {
+  color: var(--white);
+  display: grid;
+  grid-template-columns: min-content 1fr;
+  column-gap: var(--space-200);
+  user-select: none;
+
+  &__circle {
+    @include preset("4-bold");
+    grid-row: 1 / 3;
+    background-color: transparent;
+    border: 1px solid var(--white);
+    width: var(--space-400);
+    height: var(--space-400);
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    line-height: 1;
+
+    &--active {
+      background-color: var(--blue-200);
+      border-color: var(--blue-200);
+      color: initial;
+    }
+  }
+
+  &__step {
+    @include preset("5");
+    color: var(--blue-300);
+    text-transform: uppercase;
+  }
+
+  &__title {
+    @include preset("4-bold");
+    text-transform: uppercase;
+  }
+}

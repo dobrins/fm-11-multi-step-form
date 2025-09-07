@@ -1,0 +1,21 @@
+@use "../utils" as *;
+
+.form-wrapper {
+  width: 100%;
+  max-width: 28.125rem;
+  justify-self: center;
+  padding-block: var(--space-400);
+
+  display: grid;
+  align-items: start;
+
+  &__heading {
+    @include preset("1");
+  }
+
+  &__description {
+    @include preset("3-regular");
+    color: var(--grey-500);
+    margin-block-start: var(--space-100);
+  }
+}
