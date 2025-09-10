@@ -627,13 +627,13 @@ input[type=checkbox]:focus {
   border-color: var(--purple-600);
 }
 .plan--arcade {
-  background-image: url("public/icon-arcade.svg");
+  background-image: url(/public/icon-arcade.svg);
 }
 .plan--advanced {
-  background-image: url("public/icon-advanced.svg");
+  background-image: url(/public/icon-advanced.svg);
 }
 .plan--pro {
-  background-image: url("public/icon-pro.svg");
+  background-image: url(/public/icon-pro.svg/);
 }
 .plan__title {
   font-size: var(--space-200);
