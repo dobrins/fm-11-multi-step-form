@@ -1,25 +1,21 @@
+import { useEffect } from "react";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { useStateMachine } from "little-state-machine";
 import updateAction from "./updateAction";
-import type { GlobalState } from "little-state-machine";
-import { useEffect } from "react";
-
-type Step1Inputs = Pick<GlobalState, "name" | "email" | "phone" | "step">;
+import FormButtons from "./FormButtons";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { step1Schema, type Step1Inputs } from "../lib/step1Schema";
+import { routes } from "../constants/routes";
 
 const Step1 = () => {
-  const { state, actions } = useStateMachine({
-    actions: { updateAction },
-  });
+  const { state, actions } = useStateMachine({ actions: { updateAction } });
   const navigate = useNavigate();
-
-  useEffect(() => {
-    actions.updateAction({ step: 1 });
-  }, [actions]);
 
   const {
     register,
     handleSubmit,
+    setFocus,
     formState: { errors },
   } = useForm<Step1Inputs>({
     defaultValues: {
@@ -28,13 +24,22 @@ const Step1 = () => {
       phone: state.phone ?? "",
       step: 1,
     },
-    mode: "all",
+    mode: "onChange",
+    resolver: zodResolver(step1Schema),
   });
 
   const onSubmit: SubmitHandler<Step1Inputs> = (data) => {
     actions.updateAction(data);
-    navigate("/step2");
+    navigate(routes[state.step + 1]);
   };
+
+  useEffect(() => {
+    actions.updateAction({ step: 1 });
+  }, [actions]);
+
+  useEffect(() => {
+    setFocus("name");
+  }, [setFocus]);
 
   return (
     <>
@@ -43,62 +48,79 @@ const Step1 = () => {
         className="form"
         onSubmit={handleSubmit(onSubmit)}
         noValidate>
-        <div className="form-control">
+        <div
+          className={
+            errors.name ? "form-control form-control--error" : "form-control"
+          }>
           <label htmlFor="name">Name</label>
           {errors.name?.message && (
             <span
+              id="name-error"
               role="alert"
               className="error">
-              {errors.name?.message}
+              {errors.name.message}
             </span>
           )}
           <input
-            {...register("name", {
-              required: "Name is required",
-            })}
-            placeholder="name"
-            autoComplete="name"
             id="name"
+            placeholder="e.g. Stephen King"
+            autoComplete="name"
+            aria-invalid={!!errors.name}
+            aria-describedby={errors.name ? "name-error" : undefined}
+            {...register("name")}
           />
         </div>
 
-        <div className="form-control">
+        <div
+          className={
+            errors.email ? "form-control form-control--error" : "form-control"
+          }>
           <label htmlFor="email">Email address</label>
           {errors.email?.message && (
             <span
+              id="email-error"
               role="alert"
               className="error">
-              {errors.email?.message}
+              {errors.email.message}
             </span>
           )}
           <input
-            {...register("email", { required: "Email is required" })}
-            type="email"
-            placeholder="email"
             id="email"
+            type="email"
+            placeholder="e.g. stephenking@lorem.com"
+            autoComplete="email"
+            aria-invalid={!!errors.email}
+            aria-describedby={errors.email ? "email-error" : undefined}
+            {...register("email")}
           />
         </div>
 
-        <div className="form-control">
+        <div
+          className={
+            errors.phone ? "form-control form-control--error" : "form-control"
+          }>
           <label htmlFor="phone">Phone number</label>
+          {errors.phone?.message && (
+            <span
+              id="phone-error"
+              role="alert"
+              className="error">
+              {errors.phone.message}
+            </span>
+          )}
           <input
-            {...register("phone")}
-            type="tel"
-            placeholder="phone"
-            autoComplete="tel"
             id="phone"
+            type="tel"
+            inputMode="tel"
+            placeholder="e.g. +1 234 567 890"
+            autoComplete="tel"
+            aria-invalid={!!errors.phone}
+            aria-describedby={errors.phone ? "phone-error" : undefined}
+            {...register("phone")}
           />
         </div>
       </form>
-
-      <div className="form-buttons">
-        <button
-          type="submit"
-          form="step1-form"
-          className="btn-primary">
-          Next Step
-        </button>
-      </div>
+      <FormButtons />
     </>
   );
 };

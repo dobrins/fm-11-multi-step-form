@@ -1,0 +1,43 @@
+@use "../utils" as *;
+
+input[type="checkbox"] {
+  appearance: none;
+  border-radius: var(--space-50);
+  width: var(--space-225);
+  height: var(--space-225);
+  border: var(--space-12) solid var(--grey-500);
+  position: relative;
+  font-family: system-ui, sans-serif;
+  transition: 0.2s all ease-in-out 0.1s;
+  flex-shrink: 0;
+
+  &::after {
+    content: "";
+    display: block;
+    width: 72%;
+    height: 72%;
+    position: absolute;
+    left: 14%;
+    top: 14%;
+    transition: 0.2s transform ease-in-out 0.1s;
+    background-color: var(--white);
+    clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+    transform: scale(0) rotate(180deg);
+  }
+
+  &:checked {
+    border-color: var(--purple-600);
+    background-color: var(--purple-600);
+    transition: 0.3s all ease-in-out;
+
+    &::after {
+      transform: scale(1) rotate(0);
+      transition-delay: 0;
+    }
+  }
+
+  &:focus {
+    outline: 0;
+    border-color: var(--purple-600);
+  }
+}

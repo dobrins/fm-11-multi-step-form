@@ -1,13 +1,13 @@
 import React from "react";
+import { useEffect } from "react";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { useStateMachine } from "little-state-machine";
+import { useStateMachine, type GlobalState } from "little-state-machine";
 import updateAction from "./updateAction";
-import type { GlobalState } from "little-state-machine";
-import { useEffect } from "react";
 import { TEXTS_PLANS } from "../constants/text";
 import Plan from "./Plan";
 import FormButtons from "./FormButtons";
+import { routes } from "../constants/routes";
 
 type Step2Inputs = Pick<GlobalState, "plan" | "step" | "yearly">;
 
@@ -22,18 +22,21 @@ const Step2 = () => {
   });
   const navigate = useNavigate();
   const yearly = watch("yearly");
+  const plan = watch("plan");
 
   useEffect(() => {
     actions.updateAction({ step: 2 });
   }, [actions]);
 
   useEffect(() => {
-    actions.updateAction({ yearly });
-  }, [actions, yearly]);
+    const planTxt = TEXTS_PLANS.find((p) => p.name === plan);
+    const planPrice = planTxt?.[yearly ? "yearly" : "monthly"] ?? 0;
+    actions.updateAction({ yearly, planPrice, plan });
+  }, [actions, yearly, plan]);
 
   const onSubmit: SubmitHandler<Step2Inputs> = (data) => {
     actions.updateAction(data);
-    navigate("/result");
+    navigate(routes[state.step + 1]);
   };
 
   return (

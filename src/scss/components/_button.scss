@@ -4,15 +4,24 @@
   --bg: var(#{$bg});
   --bg-hover: var(#{$bg-hover});
   @include preset("3-medium");
+  height: var(--space-600);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   color: var(--white);
   border-radius: var(--space-100);
-  padding: var(--space-200) var(--space-300);
+  padding-inline: var(--space-300);
   text-decoration: none;
   cursor: pointer;
   border: 0;
-  position: relative;
-  text-align: center;
   background-color: var(--bg);
+
+  @include mq(s) {
+    @include preset("4-medium");
+    border-radius: var(--space-50);
+    padding-inline: var(--space-200);
+    height: var(--space-500);
+  }
 
   &:hover {
     --bg: var(--bg-hover);
@@ -44,9 +53,9 @@
 
 .btn-tertiary {
   @include btn();
-  color: var(--blue-950);
+  color: var(--grey-500);
 
   &:hover {
-    color: var(--grey-500);
+    color: var(--blue-950);
   }
 }

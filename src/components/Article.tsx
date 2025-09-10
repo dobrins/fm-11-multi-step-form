@@ -3,22 +3,27 @@ import Sidebar from "./Sidebar";
 import FormWrapper from "./FormWrapper";
 import { useStateMachine } from "little-state-machine";
 import { TEXTS } from "../constants/text";
+import ThankYou from "./ThankYou";
 
 interface PassedProps {
-  form: ReactNode;
+  children: ReactNode;
 }
 
-export default function Article({ form }: PassedProps) {
+export default function Article({ children }: PassedProps) {
   const { state } = useStateMachine();
-  const { step } = state;
+
   return (
     <article className="article">
       <Sidebar />
-      <FormWrapper
-        title={TEXTS[step - 1].title}
-        description={TEXTS[step - 1].description}>
-        {form}
-      </FormWrapper>
+      {state.isFinish ? (
+        <ThankYou />
+      ) : (
+        <FormWrapper
+          title={TEXTS[state.step - 1].title}
+          description={TEXTS[state.step - 1].description}>
+          {children}
+        </FormWrapper>
+      )}
     </article>
   );
 }

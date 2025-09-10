@@ -1,81 +1,85 @@
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import * as Yup from "yup";
+import { useForm, type SubmitHandler } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import { useStateMachine, type GlobalState } from "little-state-machine";
+import updateAction from "./updateAction";
+import { useEffect } from "react";
+import FormButtons from "./FormButtons";
+import { TEXTS_ADD_ONS } from "../constants/text";
+import { routes } from "../constants/routes";
+
+type Step3Inputs = Pick<GlobalState, "services" | "storage" | "profile">;
+
+type TService = {
+  name: string;
+  description: string;
+  price: string;
+};
 
 const Step3 = () => {
-  const REQUIRED_TXT = "This field is required";
-  // const VALID_EMAIL_TXT = "Please enter a valid email address";
-  // const CONSENT_TXT = "To submit this form, please consent to being contacted";
-  // const QUERY_TYPE_TXT = "Please select a query type";
+  const { actions, state } = useStateMachine({ actions: { updateAction } });
 
-  const SignupSchema = Yup.object({
-    firstName: Yup.string().required(REQUIRED_TXT),
+  const { register, handleSubmit } = useForm<Step3Inputs>({
+    defaultValues: {
+      services: state.services,
+      storage: state.storage,
+      profile: state.profile,
+    },
   });
 
   const navigate = useNavigate();
 
+  useEffect(() => {
+    actions.updateAction({ step: 3 });
+  }, [actions]);
+
+  const onSubmit: SubmitHandler<Step3Inputs> = (data) => {
+    actions.updateAction(data);
+    navigate(routes[state.step + 1]);
+  };
+
   return (
-    <div className="form-container">
-      <h1 className="form-container__heading">Contact Us</h1>
-      <Formik
-        initialValues={{
-          firstName: "",
-        }}
-        validateOnMount
-        validationSchema={SignupSchema}
-        onSubmit={() => {
-          navigate("/result");
-        }}>
-        {({ errors, touched, isSubmitting }) => (
-          <Form
-            className="form"
-            noValidate>
-            <div
-              aria-live="polite"
-              className="sr-only"></div>
-            <div
-              className={`form-control ${
-                errors.firstName && touched.firstName
-                  ? "form-control--error"
-                  : ""
-              }`}>
-              <Field
-                type="text"
-                id="firstName"
-                name="firstName"
-                className="input"
-                required
-                autoComplete="given-name"
-                aria-invalid={Boolean(errors.firstName && touched.firstName)}
-                aria-describedby={
-                  errors.firstName && touched.firstName
-                    ? "firstName-error"
-                    : undefined
+    <>
+      <form
+        className="form form--small-gap"
+        id="step3-form"
+        onSubmit={handleSubmit(onSubmit)}>
+        {TEXTS_ADD_ONS.map((item) => {
+          return (
+            <label
+              key={item.id}
+              htmlFor={item.id}
+              className="add-ons-container">
+              <input
+                {...register(item.id)}
+                type="checkbox"
+                id={item.id}
+              />
+              <Service
+                name={item.name}
+                description={item.description}
+                price={
+                  state.yearly ? `+${item.yearly}/yr` : `+${item.monthly}/mo`
                 }
               />
-              <ErrorMessage name="firstName">
-                {(msg) => (
-                  <div
-                    id="firstName-error"
-                    className="error"
-                    role="alert">
-                    {msg}
-                  </div>
-                )}
-              </ErrorMessage>
-            </div>
-            <button
-              type="submit"
-              className="btn"
-              // disabled={!(isValid && dirty) || isSubmitting}
-              aria-busy={isSubmitting}>
-              {isSubmitting ? <div className="loader"></div> : "Submit"}
-            </button>
-          </Form>
-        )}
-      </Formik>
-    </div>
+            </label>
+          );
+        })}
+      </form>
+      <FormButtons />
+    </>
   );
 };
 
 export default Step3;
+
+// LOCAL COMPONENT
+
+const Service = ({ name, description, price }: TService) => {
+  return (
+    <div className="service">
+      <div className="service__title">{name}</div>
+      <div className="service__description">{description}</div>
+      <div className="service__price">{price}</div>
+    </div>
+  );
+};

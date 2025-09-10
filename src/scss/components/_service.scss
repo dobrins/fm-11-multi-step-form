@@ -1,0 +1,52 @@
+@use "../utils" as *;
+
+.add-ons-container {
+  @include preset("4-regular");
+
+  position: relative;
+
+  input {
+    position: absolute;
+    top: 50%;
+    left: var(--space-300);
+    transform: translateY(-50%);
+
+    &:checked + .service {
+      border-color: var(--purple-600);
+      background-color: var(--blue-50);
+    }
+  }
+}
+
+.service {
+  display: grid;
+  height: 5rem;
+  border: var(--space-12) solid var(--purple-200);
+  border-radius: var(--space-100);
+  padding: var(--space-200) var(--space-300) var(--space-200) var(--space-700);
+  cursor: pointer;
+  display: grid;
+  grid-template-columns: 1fr max-content;
+  align-items: center;
+
+  &:hover {
+    border-color: var(--purple-600);
+  }
+
+  &__title {
+    @include preset("3-medium");
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+  }
+
+  &__description {
+    color: var(--grey-500);
+    grid-column: 1 / 2;
+    grid-row: 2 / 3;
+  }
+
+  &__price {
+    color: var(--purple-600);
+    grid-row: 1 / 3;
+  }
+}

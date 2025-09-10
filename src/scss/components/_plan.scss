@@ -5,6 +5,11 @@
   justify-content: space-between;
   gap: var(--space-200);
 
+  @include mq(m) {
+    flex-direction: column;
+    gap: var(--space-100);
+  }
+
   input {
     display: none;
 
@@ -26,6 +31,13 @@
   cursor: pointer;
   background-repeat: no-repeat;
   background-position: var(--space-200) var(--space-225);
+
+  @include mq(m) {
+    min-height: var(--space-1000);
+    padding-inline-start: var(--space-1000);
+    padding-block: 0;
+    align-items: center;
+  }
 
   &:hover {
     border-color: var(--purple-600);
@@ -54,5 +66,9 @@
   &__free {
     @include preset("5");
     margin-block-start: var(--space-100);
+
+    @include mq(s) {
+      margin: 0;
+    }
   }
 }

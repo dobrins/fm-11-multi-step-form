@@ -1,12 +1,12 @@
 import { useStateMachine } from "little-state-machine";
 
-type Plan = {
+interface Plan {
   name: string;
-  yearly: number;
-  monthly: number;
-};
+  yearly: string;
+  monthly: string;
+}
 
-const Plan = ({ name, yearly, monthly }: Plan) => {
+const Service = ({ name, yearly, monthly }: Plan) => {
   const { state } = useStateMachine();
 
   return (
@@ -15,13 +15,11 @@ const Plan = ({ name, yearly, monthly }: Plan) => {
       htmlFor={name}>
       <div>
         <div className="plan__title">{name}</div>
-        <div className="plan__price">
-          ${state.yearly ? `${yearly}/yr` : `${monthly}/mo`}
-        </div>
+        <div className="plan__price">${state.yearly ? yearly : monthly}</div>
         {state.yearly && <div className="plan__free">2 months free</div>}
       </div>
     </label>
   );
 };
 
-export default Plan;
+export default Service;

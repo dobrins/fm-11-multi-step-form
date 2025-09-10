@@ -1,0 +1,67 @@
+@use "../utils" as *;
+
+.summary-container {
+  margin-block-start: var(--space-500);
+}
+
+.summary {
+  @include preset("4-regular");
+  background-color: var(--blue-50);
+  padding: var(--space-200) var(--space-300);
+  border-radius: var(--space-100);
+  display: grid;
+  grid-template-columns: 1fr max-content;
+  gap: var(--space-200);
+  color: var(--grey-500);
+  align-items: center;
+
+  @include mq(s) {
+    padding: var(--space-200);
+  }
+
+  &--total {
+    margin-block-start: var(--space-200);
+    background-color: var(--white);
+
+    @include mq(s) {
+      margin: 0;
+    }
+  }
+
+  hr {
+    grid-column: 1 / -1;
+    height: var(--space-12);
+    background-color: var(--grey-500);
+    border: 0;
+    opacity: 0.2;
+  }
+
+  &__link {
+    color: currentColor;
+
+    &:hover {
+      color: var(--purple-600);
+    }
+  }
+
+  &__accent {
+    @include preset("3-medium");
+    color: var(--blue-950);
+  }
+
+  &__add-on-price {
+    color: var(--blue-950);
+    text-align: end;
+  }
+
+  &__title {
+    display: block;
+    text-transform: capitalize;
+    margin-block-end: var(--space-100);
+  }
+
+  &__total {
+    @include preset("4-bold");
+    color: var(--purple-600);
+  }
+}

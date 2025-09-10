@@ -12,7 +12,6 @@ export default function Sidebar() {
 
   return (
     <aside className="sidebar">
-      {/* <h1>{state.step}</h1> */}
       {TEXTS_SIDEBAR.map((item, index) => {
         return (
           <SidebarStep

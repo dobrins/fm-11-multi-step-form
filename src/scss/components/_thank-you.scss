@@ -1,13 +1,14 @@
 @use "../utils" as *;
 
-.form-wrapper {
+.thank-you {
   width: 100%;
   max-width: 28.125rem;
   justify-self: center;
-  padding-block: var(--space-400);
   display: grid;
-  align-items: start;
-  grid-template-rows: min-content 1fr auto;
+  align-content: center;
+  justify-items: center;
+  text-align: center;
+  gap: var(--space-200);
 
   @include mq(s) {
     background-color: var(--white);
@@ -18,17 +19,24 @@
     margin-block-start: var(--space-800);
   }
 
-  &__heading {
+  &__icon {
+    width: auto;
+  }
+  &__title {
     @include preset("1");
-
-    @include mq(s) {
-      @include preset("2");
-    }
+    margin-block-start: var(--space-200);
   }
 
   &__description {
     @include preset("3-regular");
     color: var(--grey-500);
-    margin-block-start: var(--space-100);
+  }
+
+  a {
+    color: currentColor;
+
+    &:hover {
+      color: var(--purple-600);
+    }
   }
 }
