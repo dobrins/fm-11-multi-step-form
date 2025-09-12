@@ -1,11 +1,12 @@
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { useStateMachine, type GlobalState } from "little-state-machine";
-import updateAction from "./updateAction";
+import updateAction from "../state/actions/update-action";
 import { useEffect } from "react";
 import FormButtons from "./FormButtons";
 import { TEXTS_ADD_ONS } from "../constants/text";
 import { routes } from "../constants/routes";
+import { motion } from "framer-motion";
 
 type Step3Inputs = Pick<GlobalState, "services" | "storage" | "profile">;
 
@@ -39,32 +40,38 @@ const Step3 = () => {
 
   return (
     <>
-      <form
-        className="form form--small-gap"
-        id="step3-form"
-        onSubmit={handleSubmit(onSubmit)}>
-        {TEXTS_ADD_ONS.map((item) => {
-          return (
-            <label
-              key={item.id}
-              htmlFor={item.id}
-              className="add-ons-container">
-              <input
-                {...register(item.id)}
-                type="checkbox"
-                id={item.id}
-              />
-              <Service
-                name={item.name}
-                description={item.description}
-                price={
-                  state.yearly ? `+${item.yearly}/yr` : `+${item.monthly}/mo`
-                }
-              />
-            </label>
-          );
-        })}
-      </form>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.25 }}>
+        <form
+          className="form form--small-gap"
+          id="step3-form"
+          onSubmit={handleSubmit(onSubmit)}>
+          {TEXTS_ADD_ONS.map((item) => {
+            return (
+              <label
+                key={item.id}
+                htmlFor={item.id}
+                className="add-ons-container">
+                <input
+                  {...register(item.id)}
+                  type="checkbox"
+                  id={item.id}
+                />
+                <Service
+                  name={item.name}
+                  description={item.description}
+                  price={
+                    state.yearly ? `+${item.yearly}/yr` : `+${item.monthly}/mo`
+                  }
+                />
+              </label>
+            );
+          })}
+        </form>
+      </motion.div>
       <FormButtons />
     </>
   );

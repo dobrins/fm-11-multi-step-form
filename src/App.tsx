@@ -1,18 +1,21 @@
 import { createStore } from "little-state-machine";
+import { AnimatePresence } from "framer-motion";
+
 import {
   BrowserRouter as Router,
   Routes,
   Route,
   Outlet,
+  useLocation,
 } from "react-router-dom";
 import Step1 from "./components/Step1";
 import Step2 from "./components/Step2";
 import Step3 from "./components/Step3";
 import Step4 from "./components/Step4";
-import Step5 from "./components/Step5";
 import Article from "./components/Article";
 import { routes } from "./constants/routes";
-import { initialState } from "./constants/initial-state";
+import { initialState } from "./state/initial-state";
+import NotFound from "./components/NotFound";
 
 createStore(initialState, { storageType: localStorage, persist: "action" });
 
@@ -21,7 +24,19 @@ const ArticleLayout = () => <Article children={<Outlet />} />;
 export default function App() {
   return (
     <Router>
-      <Routes>
+      <AnimatedRoutes />
+    </Router>
+  );
+}
+
+function AnimatedRoutes() {
+  const location = useLocation();
+
+  return (
+    <AnimatePresence mode="wait">
+      <Routes
+        location={location}
+        key={location.pathname}>
         <Route element={<ArticleLayout />}>
           <Route
             index
@@ -39,12 +54,12 @@ export default function App() {
             path={routes[4]}
             element={<Step4 />}
           />
-          <Route
-            path={routes[5]}
-            element={<Step5 />}
-          />
         </Route>
+        <Route
+          path="*"
+          element={<NotFound />}
+        />
       </Routes>
-    </Router>
+    </AnimatePresence>
   );
 }

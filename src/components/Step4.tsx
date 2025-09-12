@@ -1,10 +1,11 @@
 import { useStateMachine } from "little-state-machine";
 import { Link } from "react-router-dom";
-import updateAction from "./updateAction";
+import updateAction from "../state/actions/update-action";
 import { useEffect } from "react";
 import FormButtons from "./FormButtons";
 import { TEXTS_ADD_ONS } from "../constants/text";
 import { routes } from "../constants/routes";
+import { motion } from "framer-motion";
 
 const Step4 = () => {
   const { actions, state } = useStateMachine({ actions: { updateAction } });
@@ -37,61 +38,70 @@ const Step4 = () => {
 
   return (
     <>
-      <div className="summary-container">
-        <div className="summary">
-          <div>
-            <div className="summary__accent">
-              <span className="summary__title">
-                {plan} ({yearly ? `yearly` : `monthly`})
-              </span>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.25 }}>
+        <div className="summary-container">
+          <div className="summary">
+            <div>
+              <div className="summary__accent">
+                <span className="summary__title">
+                  {plan} ({yearly ? `yearly` : `monthly`})
+                </span>
+              </div>
+              <Link
+                to={routes[2]}
+                className="summary__link">
+                Change
+              </Link>
             </div>
-            <Link
-              to={routes[2]}
-              className="summary__link">
-              Change
-            </Link>
+            <div className="summary__accent">
+              ${planPrice}
+              {PERIOD_TXT}
+            </div>
+            <hr />
+            {services && (
+              <>
+                <div>{TEXTS_ADD_ONS[0].name}</div>
+                <div className="summary__add-on-price">
+                  +$
+                  {yearly ? TEXTS_ADD_ONS[0].yearly : TEXTS_ADD_ONS[0].monthly}
+                  {PERIOD_TXT}
+                </div>
+              </>
+            )}
+            {storage && (
+              <>
+                <div>{TEXTS_ADD_ONS[1].name}</div>
+                <div className="summary__add-on-price">
+                  +$
+                  {yearly ? TEXTS_ADD_ONS[1].yearly : TEXTS_ADD_ONS[1].monthly}
+                  {PERIOD_TXT}
+                </div>
+              </>
+            )}
+            {profile && (
+              <>
+                <div>{TEXTS_ADD_ONS[2].name}</div>
+                <div className="summary__add-on-price">
+                  +$
+                  {yearly ? TEXTS_ADD_ONS[2].yearly : TEXTS_ADD_ONS[2].monthly}
+                  {PERIOD_TXT}
+                </div>
+              </>
+            )}
           </div>
-          <div className="summary__accent">
-            ${planPrice}
-            {PERIOD_TXT}
-          </div>
-          <hr />
-          {services && (
-            <>
-              <div>{TEXTS_ADD_ONS[0].name}</div>
-              <div className="summary__add-on-price">
-                +${yearly ? TEXTS_ADD_ONS[0].yearly : TEXTS_ADD_ONS[0].monthly}
-                {PERIOD_TXT}
-              </div>
-            </>
-          )}
-          {storage && (
-            <>
-              <div>{TEXTS_ADD_ONS[1].name}</div>
-              <div className="summary__add-on-price">
-                +${yearly ? TEXTS_ADD_ONS[1].yearly : TEXTS_ADD_ONS[1].monthly}
-                {PERIOD_TXT}
-              </div>
-            </>
-          )}
-          {profile && (
-            <>
-              <div>{TEXTS_ADD_ONS[2].name}</div>
-              <div className="summary__add-on-price">
-                +${yearly ? TEXTS_ADD_ONS[2].yearly : TEXTS_ADD_ONS[2].monthly}
-                {PERIOD_TXT}
-              </div>
-            </>
-          )}
-        </div>
-        <div className="summary summary--total">
-          <div>Total ({TOTAL_PER_TXT})</div>
-          <div className="summary__total">
-            +${total}
-            {PERIOD_TXT}
+          <div className="summary summary--total">
+            <div>Total ({TOTAL_PER_TXT})</div>
+            <div className="summary__total">
+              +${total}
+              {PERIOD_TXT}
+            </div>
           </div>
         </div>
-      </div>
+      </motion.div>
       <FormButtons />
     </>
   );

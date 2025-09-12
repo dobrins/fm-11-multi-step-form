@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { useStateMachine } from "little-state-machine";
 import { routes } from "../constants/routes";
-import updateAction from "./updateAction";
+import updateAction from "../state/actions/update-action";
 
 export default function FormButtons() {
   const { state, actions } = useStateMachine({ actions: { updateAction } });

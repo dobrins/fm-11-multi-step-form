@@ -18,6 +18,12 @@
     margin-block-start: var(--space-800);
   }
 
+  &--not-found {
+    gap: var(--space-300);
+    justify-items: center;
+    grid-template-rows: auto;
+  }
+
   &__heading {
     @include preset("1");
 
