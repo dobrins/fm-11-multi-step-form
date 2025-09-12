@@ -5,7 +5,7 @@ export const initialState: GlobalState = {
   email: "",
   phone: "",
   plan: "arcade",
-  planPrice: 0,
+  planPrice: 9,
   step: 1,
   yearly: false,
   services: true,

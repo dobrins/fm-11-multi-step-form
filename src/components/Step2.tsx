@@ -70,16 +70,14 @@ const Step2 = () => {
             })}
           </div>
           <div className="yearly">
+            <input
+              id="yearly"
+              type="checkbox"
+              {...register("yearly")}
+            />
             <label
               className="switch"
-              htmlFor="yearly">
-              <input
-                id="yearly"
-                type="checkbox"
-                {...register("yearly")}
-              />
-              <div></div>
-            </label>
+              htmlFor="yearly"></label>
             <label
               htmlFor="yearly"
               className={`yearly__monthly ${yearly ? "yearly__inactive" : ""}`}>

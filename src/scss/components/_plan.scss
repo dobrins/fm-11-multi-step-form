@@ -1,24 +1,5 @@
 @use "../utils" as *;
 
-.plans {
-  display: flex;
-  justify-content: space-between;
-  gap: var(--space-200);
-
-  @include mq(m) {
-    flex-direction: column;
-    gap: var(--space-100);
-  }
-
-  input {
-    display: none;
-
-    &:checked + .plan {
-      border-color: var(--purple-600);
-      background-color: var(--blue-50);
-    }
-  }
-}
 .plan {
   flex: 1;
   display: grid;
@@ -27,7 +8,6 @@
   border: var(--space-12) solid var(--purple-200);
   border-radius: var(--space-100);
   padding: var(--space-200);
-  display: grid;
   cursor: pointer;
   background-repeat: no-repeat;
   background-position: var(--space-200) var(--space-225);
@@ -44,13 +24,13 @@
   }
 
   &--arcade {
-    background-image: url(/public/icon-arcade.svg);
+    background-image: url("/public/icon-arcade.svg");
   }
   &--advanced {
-    background-image: url(/public/icon-advanced.svg);
+    background-image: url("/public/icon-advanced.svg");
   }
   &--pro {
-    background-image: url(/public/icon-pro.svg/);
+    background-image: url("/public/icon-pro.svg/");
   }
 
   &__title {
@@ -69,6 +49,26 @@
 
     @include mq(s) {
       margin: 0;
+    }
+  }
+}
+
+.plans {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-200);
+
+  @include mq(m) {
+    flex-direction: column;
+    gap: var(--space-100);
+  }
+
+  input {
+    display: none;
+
+    &:checked + .plan {
+      border-color: var(--purple-600);
+      background-color: var(--blue-50);
     }
   }
 }

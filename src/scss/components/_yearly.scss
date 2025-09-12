@@ -38,7 +38,8 @@
   transition: 0.4s;
   border-radius: var(--space-150);
 
-  div {
+  &::after {
+    content: "";
     position: absolute;
     background-color: var(--white);
     bottom: var(--space-50);
@@ -46,10 +47,14 @@
     height: var(--space-150);
     width: var(--space-150);
     border-radius: 50%;
-    transition: transform 0.2s ease-in-out;
+    transition: transform 0.1s ease-in-out;
+    display: block;
+    z-index: 11;
   }
+}
 
-  input:checked + div {
-    transform: translateX(var(--space-200));
+input:checked + .switch {
+  &::after {
+    transform: translateX(var(--space-225));
   }
 }

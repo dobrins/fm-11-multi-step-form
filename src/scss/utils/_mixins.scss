@@ -5,11 +5,11 @@
 
 @mixin mq($breakpoint) {
   @if $breakpoint == s {
-    @media (max-width: 40em) {
+    @media (width <= 40em) {
       @content;
     }
   } @else if $breakpoint == m {
-    @media (max-width: 50em) {
+    @media (width <= 50em) {
       @content;
     }
   }

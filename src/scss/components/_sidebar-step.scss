@@ -15,7 +15,7 @@
     @include preset("4-bold");
     grid-row: 1 / 3;
     background-color: transparent;
-    border: 1px solid var(--white);
+    border: var(--space-12) solid var(--white);
     width: var(--space-400);
     height: var(--space-400);
     border-radius: 50%;

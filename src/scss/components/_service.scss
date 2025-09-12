@@ -1,23 +1,5 @@
 @use "../utils" as *;
 
-.add-ons-container {
-  @include preset("4-regular");
-
-  position: relative;
-
-  input {
-    position: absolute;
-    top: 50%;
-    left: var(--space-300);
-    transform: translateY(-50%);
-
-    &:checked + .service {
-      border-color: var(--purple-600);
-      background-color: var(--blue-50);
-    }
-  }
-}
-
 .service {
   display: grid;
   height: 5rem;
@@ -25,7 +7,6 @@
   border-radius: var(--space-100);
   padding: var(--space-200) var(--space-300) var(--space-200) var(--space-700);
   cursor: pointer;
-  display: grid;
   grid-template-columns: 1fr max-content;
   align-items: center;
 
@@ -48,5 +29,23 @@
   &__price {
     color: var(--purple-600);
     grid-row: 1 / 3;
+  }
+}
+
+.add-ons-container {
+  @include preset("4-regular");
+
+  position: relative;
+
+  input {
+    position: absolute;
+    top: 50%;
+    left: var(--space-300);
+    transform: translateY(-50%);
+
+    &:checked + .service {
+      border-color: var(--purple-600);
+      background-color: var(--blue-50);
+    }
   }
 }

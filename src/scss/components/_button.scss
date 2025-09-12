@@ -52,7 +52,7 @@
 }
 
 .btn-tertiary {
-  @include btn();
+  @include btn;
   color: var(--grey-500);
 
   &:hover {

@@ -43,7 +43,7 @@
     @include preset("4-regular");
   }
 
-  input:not([type="radio"]):not([type="checkbox"]) {
+  input:not([type="radio"], [type="checkbox"]) {
     @include preset("3-medium");
     height: var(--space-600);
     border: var(--space-12) solid var(--purple-200);
@@ -62,7 +62,7 @@
   }
 
   &--error {
-    & > :is(input:not([type="radio"]):not([type="checkbox"]), textarea) {
+    & > :is(input:not([type="radio"], [type="checkbox"]), textarea) {
       border-color: var(--red-500);
 
       &:hover,
